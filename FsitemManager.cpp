@@ -28,7 +28,7 @@ void FsitemManager::print()
 	fl.close();
 
 }
-void FsitemManager::setRoot()//работа с определённым элементом
+void FsitemManager::setRoot()//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 {
 	Fsitem* item = new Fsitem();
 	item->setName("");
@@ -66,20 +66,14 @@ void FsitemManager::addFsitem(Fsitem* item)
 
 void FsitemManager::addFsitem(Fsitem* item, const string prePath)
 {
-	Fsitem* preItem = NULL;
-	for (int i = 0; i < items.size(); i++)
-	{
-		Fsitem* candidate = items[i];
-		if (prePath == candidate->getPath())
-		{
-			preItem = candidate;
-			break;
-		}
-	}
-	if (preItem != NULL)
-	{
-		item->setParent(preItem);
-		preItem->addChild(item);
-		items.push_back(item);
-	}
+    for (Fsitem* candidate : items)
+    {
+        if (prePath == candidate->getPath())
+        {
+            item->setParent(candidate);
+            candidate->addChild(item);
+            items.push_back(item);
+            break;
+        }
+    }
 }

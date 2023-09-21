@@ -8,15 +8,15 @@ Parser::Parser()
 Parser::~Parser()
 {
 	manager = NULL;
-		delete manager;
+	delete manager;
 }
 
-void Parser::setManager(FsitemManager* theManager)
+void Parser::setManager(FsitemManager *theManager)
 {
 	manager = theManager;
 }
 
-void Parser::parse(const char* dataFilePath)
+void Parser::parse(const char *dataFilePath)
 {
 	ifstream file(dataFilePath);
 	if (!file)
@@ -43,7 +43,7 @@ void Parser::_processline(const string line)
 	{
 		return;
 	}
-	else if (partsSize == 2)//тип последнего элемента
+	else if (partsSize == 2)
 	{
 		itemType = FS_FILE;
 		istringstream ss(parts[1]);
@@ -54,10 +54,9 @@ void Parser::_processline(const string line)
 	{
 		Parser::_processitem(items, i, fileSize, itemType);
 	}
-		
 }
 
-void Parser::_processitem(const vector<string>& items, int count, int size, int itemType)
+void Parser::_processitem(const vector<string> &items, int count, int size, int itemType)
 {
 	size_t iSize = items.size();
 	string path = "/", prePath;
@@ -74,13 +73,16 @@ void Parser::_processitem(const vector<string>& items, int count, int size, int 
 		{
 			segType = FS_FILE;
 		}
-		else path += "/";
+		else
+			path += "/";
 	}
-	if (!manager->addPath(path)) return;
+	if (!manager->addPath(path))
+		return;
 
-	if (segType != FS_FILE) size = 0;
+	if (segType != FS_FILE)
+		size = 0;
 
-	Fsitem* item = new Fsitem();
+	Fsitem *item = new Fsitem();
 	item->setName(items[count]);
 	item->setPath(path);
 	item->setType(segType);
@@ -88,7 +90,7 @@ void Parser::_processitem(const vector<string>& items, int count, int size, int 
 	item->setSize(size);
 	manager->addFsitem(item, prePath);
 }
-vector <string>& Parser::_split_string(const string& s, char delim, vector<string>& parts)
+vector<string> &Parser::_split_string(const string &s, char delim, vector<string> &parts)
 {
 	stringstream ss(s);
 	string part;
@@ -98,7 +100,7 @@ vector <string>& Parser::_split_string(const string& s, char delim, vector<strin
 	}
 	return parts;
 }
-vector <string> Parser::split_string(const string& s, char delim)
+vector<string> Parser::split_string(const string &s, char delim)
 {
 	vector<string> parts;
 	return Parser::_split_string(s, delim, parts);

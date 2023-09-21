@@ -7,7 +7,7 @@
 
 int main(int argc, char* argv[])
 {
-	{const char* dataFilePath = "input.txt";
+	const char* dataFilePath = "input.txt";
 	if (argc >= 2)
 	{
 		dataFilePath = argv[1];
@@ -19,6 +19,6 @@ int main(int argc, char* argv[])
 	parser.parse(dataFilePath);
 
 	manager.print();
-	}
+	
 	return 0;
 }

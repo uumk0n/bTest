@@ -3,6 +3,19 @@
 
 int Fsitem::id_counter = 0;
 
+Fsitem::Fsitem()
+{
+	parent = NULL;
+	id = Fsitem::id_counter++;
+	printMode = PRINT_FOR_TREE;
+}
+Fsitem::~Fsitem()
+{	
+	if (parent)
+		delete parent;
+	children.clear();
+}
+
 ostream& operator<<(ostream& stream, Fsitem o)
 {
 	int mode = o.getPrintMode();
@@ -62,18 +75,6 @@ void Fsitem::printTree(ostream& stream, bool isSort = false)
 		}
 	}
 	stream.clear();
-}
-Fsitem::Fsitem()
-{
-	parent = NULL;
-	id = Fsitem::id_counter++;
-	printMode = PRINT_FOR_TREE;
-}
-Fsitem::~Fsitem()
-{	
-	if (parent)
-		delete parent;
-	children.clear();
 }
 
 int Fsitem::getPrintMode()
@@ -161,15 +162,15 @@ bool _sortItems(Fsitem* a, Fsitem* b)
 	string aName = a->getName(),
 		bName = b->getName();
 
-	if (aType!=bType)//директории
+	if (aType!=bType)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	{
 		return aType < bType;
 	}
-	if (aType == FS_DIR && bType == FS_DIR)//директории по имени
+	if (aType == FS_DIR && bType == FS_DIR)//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 	{
 		return aName < bName;
 	}
-	if (aType == FS_FILE && bType == FS_FILE && aSize != bSize)//файлы по размеру
+	if (aType == FS_FILE && bType == FS_FILE && aSize != bSize)//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	{
 		return aSize > bSize;
 	}
